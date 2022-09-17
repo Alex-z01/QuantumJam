@@ -1,17 +1,20 @@
-import pygame
+import game
 import math
+import pygame
+from spawnable import Spawnable
 
-class Enemy(pygame.sprite.Sprite):
+class Enemy(Spawnable, pygame.sprite.Sprite):
 
     dist = 100
+    name = ''
 
-    def __init__(self, win, x, y, scale, speed, entangled, color=(255, 0, 0)):
+    def __init__(self, srf, x, y, color=(255, 0, 0), entangled=False, scale=1, speed=5):
         pygame.sprite.Sprite.__init__(self)
+        Spawnable.__init__(self, srf, x, y)
 
-        self.win = win
-        self.speed = speed
         self.entangled = entangled
-
+        self.speed = speed
+        
         # Image 
         #img = pygame.image.load('graphics\Transperent\Icon1.png')
         #self.image = pygame.transform.scale(img, (img.get_width() * scale, img.get_height() * scale))
@@ -20,27 +23,32 @@ class Enemy(pygame.sprite.Sprite):
 
         # Rect only
         self.color = color
-        self.srf = pygame.Surface((win.get_width(), win.get_height()), pygame.SRCALPHA)
-        self.rect = pygame.Rect(x, y, 60, 60)
+        self.rect = pygame.Rect(self.posX, self.posY, 60, 60)
 
     def clearBG(self):
         self.srf.fill((0, 0, 0, 0))
 
-    def moveToTarget(self, target):
+    def moveTowards(self, targetVect : list[int]):
         # Find direction vector (dx, dy) between enemy and player.
-        dx, dy = target.x - self.rect.x, target.y - self.rect.y
+        dx = targetVect[0] - self.rect.x
+        dy = targetVect[1] - self.rect.y
         dist = math.hypot(dx, dy)
 
         try:
-            dx, dy = dx / dist, dy / dist  # Normalize.
+            # Normalize.
+            dx = dx / dist
+            dy = dy / dist  
         except ZeroDivisionError: 
             return
         # Move along this normalized vector towards the player at current speed.
         self.rect.x += dx * self.speed
         self.rect.y += dy * self.speed
-
-
-    def draw(self):
         self.clearBG()
+
+    def draw(self, win):
         pygame.draw.rect(self.srf, self.color, self.rect)
-        self.win.blit(self.srf, self.rect)
+        win.blit(self.srf, self.rect)
+
+    def spawn(self):
+        self.rect = pygame.Rect(self.posX, self.posY, 60, 60)
+        game.enemyList.append(self)

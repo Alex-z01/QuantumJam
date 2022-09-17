@@ -1,7 +1,10 @@
+import game
 import pygame
-import enemySpawning
-from sys import exit
+import random
+from spawnable import Spawnable
+from spawner import Spawner
 from enemy import Enemy
+from sys import exit
 
 pygame.init()
 
@@ -18,18 +21,23 @@ def draw_bg():
     screen.fill(BG)
 
 BLUE = (0, 0, 255)
-e = Enemy(screen, 300, 300, 1, 5, False)
-e2 = Enemy(screen, 30, 60, 1, 5, False, BLUE)
+
+spawnerSurface = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+
+otherObject = Spawnable(spawnerSurface, 0, 0)
+squareEnemy = Enemy(spawnerSurface, 0, 0)
+
+spawner = Spawner(screen, spawnerSurface)
+spawner.spawn(squareEnemy, 3)
 
 run = True
 while run:
     
     clock.tick(FPS)
 
-    e2.draw()
-
-    #e.draw()
-    #e.moveToTarget(e2.rect)
+    for element in game.enemyList:
+        element.draw(screen)
+        element.moveTowards((0, 0))
 
     for event in pygame.event.get():
         # Quit game
