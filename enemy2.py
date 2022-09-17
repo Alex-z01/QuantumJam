@@ -7,9 +7,9 @@ class Enemy2():
     def __init__(self, shape, points : list[pygame.Vector2] = None, color=(255, 0, 0), radius=None, x=0, y=0):
 
         # Stats
-        self.maxHP = 0
+        self.maxHP = 100
         self.currentHP = self.maxHP
-        self.damage = 0
+        self.damage = 1
         self.speed = 5
 
         # Data

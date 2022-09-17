@@ -61,7 +61,7 @@ while game.running:
             game.running = False
 
     keys = pygame.key.get_pressed()
-    player.do_player_things(screen, keys, pygame.mouse, [])
+    player.do_player_things(screen, keys, pygame.mouse, game.enemyList, game.projectileList)
     health_bar.show_health()
     level_display.show_level()
 

@@ -18,9 +18,15 @@ class weapon:
 		self.speed = 10
 		self.damage = 10
 
+	def get_rectangle(self):
+		return self.rectangle
+
 	def move(self):
 		self.rectangle.left += self.speed * math.cos(math.radians(self.angle))
 		self.rectangle.top += self.speed * math.sin(math.radians(self.angle))
+
+	def get_damage(self):
+		return self.damage
 
 
 class particle(weapon):
