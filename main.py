@@ -2,9 +2,7 @@ import game
 import player_class
 import pygame
 from shapes import Shapes
-from spawnable import Spawnable
 from spawner import Spawner
-from enemy import Enemy
 from enemy2 import Enemy2
 from sys import exit
 

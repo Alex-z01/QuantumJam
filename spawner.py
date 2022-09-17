@@ -1,6 +1,5 @@
 import pygame
 from enemy2 import Enemy2
-from spawnable import Spawnable
 from shapes import Shapes
 
 class Spawner():
