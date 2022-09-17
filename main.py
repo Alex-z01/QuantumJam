@@ -29,14 +29,15 @@ BLUE = (0, 0, 255)
 spawner = Spawner(screen)
 
 # Create your enemy prefabs
-triangleEnemy = Enemy2(Shapes.TRIANGLE, points=[(0, 0), (0, 100), (100, 0)])
+triangleEnemy = Enemy2(Shapes.TRIANGLE, points=[(100, 100), (200, 100), (100, 200)])
 squareEnemy = Enemy2(Shapes.SQUARE, color=(0,255,0), x=200, y=200)
 squareEnemy2 = Enemy2(Shapes.SQUARE, color=(0,30,50), x=300, y=100)
 squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), x=170, y=70)
+squareEnemy4 = Enemy2(Shapes.SQUARE, x=146, y=146)
 
 # Spawn them
 spawner.spawn(triangleEnemy, 1)
-#spawner.spawn(squareEnemy, 1)
+spawner.spawn(squareEnemy4, 1)
 #spawner.spawn(squareEnemy2, 1)
 #spawner.spawn(squareEnemy3, 1)
 
@@ -50,8 +51,10 @@ while game.running:
 
     for element in game.enemyList:
         element.draw(screen)
-        if element.shape == Shapes.SQUARE:
-            element.moveRectTowards((10,200))
+        #if element.shape == Shapes.SQUARE:
+        #    element.moveRectTowards((0,0))
+        element.movePolygonTowards((0,0))
+
 
     for event in pygame.event.get():
         # Quit game

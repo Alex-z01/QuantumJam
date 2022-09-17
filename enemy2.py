@@ -79,7 +79,7 @@ class Enemy2():
         dy = targetVect[1] - self.posY
         dist = math.hypot(dx, dy)
 
-        if dist > dx * self.speed and dist > dx * self.speed:
+        if dist > dx and dist > dx:
             try:
                 # Normalize.
                 dx = dx / dist
