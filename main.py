@@ -1,4 +1,5 @@
 import pygame
+import enemySpawning
 from sys import exit
 from enemy import Enemy
 
@@ -12,10 +13,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Game')
 
 clock = pygame.time.Clock()
-
-# Define player action vars
-moving_left = False
-moving_right = False
 
 def draw_bg():
     screen.fill(BG)
@@ -31,8 +28,8 @@ while run:
 
     e2.draw()
 
-    e.draw()
-    e.moveToTarget(e2.rect)
+    #e.draw()
+    #e.moveToTarget(e2.rect)
 
     for event in pygame.event.get():
         # Quit game

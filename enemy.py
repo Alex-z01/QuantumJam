@@ -1,4 +1,3 @@
-from dis import dis
 import pygame
 import math
 
@@ -39,7 +38,6 @@ class Enemy(pygame.sprite.Sprite):
         # Move along this normalized vector towards the player at current speed.
         self.rect.x += dx * self.speed
         self.rect.y += dy * self.speed
-
 
 
     def draw(self):

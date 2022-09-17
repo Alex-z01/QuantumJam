@@ -1,0 +1,3 @@
+running = True
+enemyList = []
+projectileList = []
