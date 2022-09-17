@@ -34,7 +34,7 @@ class Player:
 		self.weapon = weapons.weapon_type.PARTICLE
 		self.projectiles = []
 		self.time_since_last_attack = 0
-		self.attack_speed = 200  # 200 ms delay between attacks
+		self.delay_between_attack = 300  # 300 ms delay between attacks, higher value = less attack speed
 		self.health = 100
 
 		self.horizontal_speed = 5
@@ -63,7 +63,7 @@ class Player:
 
 	def attack(self, mouse):
 		current_time = pygame.time.get_ticks()
-		if mouse.get_pressed()[0] and current_time - self.time_since_last_attack > self.attack_speed:
+		if mouse.get_pressed()[0] and current_time - self.time_since_last_attack > self.delay_between_attack:
 			mouse_location_x, mouse_location_y = mouse.get_pos()
 			angle = calculate_angle(self.rectangle.centerx, self.rectangle.centery, mouse_location_x, mouse_location_y)
 
