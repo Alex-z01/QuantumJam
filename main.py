@@ -5,6 +5,7 @@ from spawnable import Spawnable
 from spawner import Spawner
 from enemy import Enemy
 from sys import exit
+import player_class
 
 pygame.init()
 
@@ -29,6 +30,8 @@ squareEnemy = Enemy(spawnerSurface, 0, 0)
 
 spawner = Spawner(screen, spawnerSurface)
 spawner.spawn(squareEnemy, 3)
+
+player = player_class.Player(80,300)
 
 run = True
 while run:
@@ -59,6 +62,9 @@ while run:
                 moving_left = False
             if event.key == pygame.K_d:
                 moving_right = False
+
+    keys = pygame.key.get_pressed()
+    player.do_player_things(screen, keys, pygame.mouse, [])
 
     pygame.display.update()
     draw_bg()
