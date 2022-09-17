@@ -1,11 +1,12 @@
 import game
+import player_class
 import pygame
-import random
+from shapes import Shapes
 from spawnable import Spawnable
 from spawner import Spawner
 from enemy import Enemy
+from enemy2 import Enemy2
 from sys import exit
-import player_class
 
 pygame.init()
 
@@ -23,29 +24,33 @@ def draw_bg():
 
 BLUE = (0, 0, 255)
 
-spawnerSurface = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+spawner = Spawner(screen)
 
-otherObject = Spawnable(spawnerSurface, 0, 0)
-squareEnemy = Enemy(spawnerSurface, 0, 0)
+triangleEnemy = Enemy2(Shapes.TRIANGLE, points=[(0, 0), (0, 100), (100, 0)])
+squareEnemy = Enemy2(Shapes.SQUARE, color=(0,255,0), x=200, y=200)
+squareEnemy2 = Enemy2(Shapes.SQUARE, color=(0,30,50), x=300, y=100)
+squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), x=70, y=70)
 
-spawner = Spawner(screen, spawnerSurface)
-spawner.spawn(squareEnemy, 3)
+spawner.spawn(triangleEnemy, 1)
+spawner.spawn(squareEnemy, 1)
+spawner.spawn(squareEnemy2, 1)
+spawner.spawn(squareEnemy3, 1)
 
-player = player_class.Player(80,300)
+player = player_class.Player(80, 200)
 
-run = True
-while run:
+print(game.enemyList)
+while game.running:
     
     clock.tick(FPS)
 
     for element in game.enemyList:
         element.draw(screen)
-        element.moveTowards((0, 0))
+        #element.moveTowards((0,0))
 
     for event in pygame.event.get():
         # Quit game
         if event.type == pygame.QUIT:
-            run = False
+            game.running = False
 
         # Keyboard input
         if event.type == pygame.KEYDOWN:
@@ -54,7 +59,7 @@ while run:
             if event.key == pygame.K_d:
                 moving_right = True
             if event.key == pygame.K_ESCAPE:
-                run = False
+                game.running = False
 
         # Keyboard release
         if event.type == pygame.KEYUP:
