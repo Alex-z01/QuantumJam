@@ -8,6 +8,7 @@ def calculate_angle(src_x, src_y, target_x, target_y):
 	radians = math.atan2(target_y - src_y, target_x - src_x)
 	return math.degrees(radians)
 
+
 def rot_center(image, angle, x, y):
 	rotated_image = pygame.transform.rotate(image, angle)
 	new_rect = rotated_image.get_rect(center=image.get_rect(center=(x, y)).center)
@@ -32,6 +33,8 @@ class Player:
 
 		self.weapon = weapons.weapon_type.PARTICLE
 		self.projectiles = []
+		self.time_since_last_attack = 0
+		self.attack_speed = 200  # 200 ms delay between attacks
 		self.health = 100
 
 		self.horizontal_speed = 5
@@ -55,20 +58,23 @@ class Player:
 		if (keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]) and self.rectangle.right < w:
 			self.rectangle.left += self.horizontal_speed
 
-		if keys_pressed[pygame.K_q] or keys_pressed[pygame.K_e]:  # unsure what key to swap weapons with
+		if keys_pressed[pygame.K_q] or keys_pressed[pygame.K_e]:  # swap weapon with q or e
 			self.swap_weapon()
 
 	def attack(self, mouse):
-		if mouse.get_pressed()[0]:
+		current_time = pygame.time.get_ticks()
+		if mouse.get_pressed()[0] and current_time - self.time_since_last_attack > self.attack_speed:
 			mouse_location_x, mouse_location_y = mouse.get_pos()
 			angle = calculate_angle(self.rectangle.centerx, self.rectangle.centery, mouse_location_x, mouse_location_y)
 
 			self.angle = angle
 			self.surface = pygame.transform.rotate(pygame.image.load(self.model_location), -self.angle)
 			self.rectangle = self.surface.get_rect(center=self.rectangle.center)
+
+			self.time_since_last_attack = current_time
 			self.projectiles.append(weapons.particle(self.rectangle.centerx, self.rectangle.centery, angle))
 
-	# Need enemy.get_hitbox() and enemy.get_damage() implemented
+	# Need enemy.get_hitbox() and enemy.get_damage() implemented, todo
 	def detect_enemy_collision(self, enemies):
 		for enemy in enemies:
 			enemy_hitbox = enemy.get_hitbox()
