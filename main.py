@@ -53,7 +53,6 @@ while game.running:
         element.draw(screen)
         #if element.shape == Shapes.SQUARE:
         #    element.moveRectTowards((0,0))
-        element.movePolygonTowards((0,0))
 
 
     for event in pygame.event.get():
