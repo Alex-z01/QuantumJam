@@ -44,6 +44,7 @@ spawner.spawn(squareEnemy4, 1)
 player = player_class.Player(80, 200)
 health_bar = status_bars.health_bar(screen, player)
 level_display = status_bars.level_display(screen)
+game_over = status_bars.game_over(screen, player, 600, 300, 300, 300)
 
 while game.running:
     
@@ -64,6 +65,7 @@ while game.running:
     player.do_player_things(screen, keys, pygame.mouse, game.enemyList, game.projectileList)
     health_bar.show_health()
     level_display.show_level()
+    game_over.show()
 
     pygame.display.update()
     draw_bg()

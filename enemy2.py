@@ -9,7 +9,7 @@ class Enemy2():
         # Stats
         self.maxHP = 100
         self.currentHP = self.maxHP
-        self.damage = 1
+        self.damage = 50
         self.speed = 5
 
         # Data
