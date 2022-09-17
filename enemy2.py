@@ -10,7 +10,7 @@ class Enemy2():
         self.maxHP = 0
         self.currentHP = self.maxHP
         self.damage = 0
-        self.speed = 1
+        self.speed = 5
 
         # Data
         self.shape = shape
@@ -19,6 +19,8 @@ class Enemy2():
         self.radius = radius
         self.posX = x
         self.posY = y
+        self.rect = None
+
 
     def getCurrentHP(self):
         return self.currentHP
@@ -41,6 +43,9 @@ class Enemy2():
     def getPoints(self):
         return self.points
 
+    def getRect(self):
+        return self.rect
+
     def getPos(self):
         return [self.posX, self.posY] 
 
@@ -60,40 +65,45 @@ class Enemy2():
     def setMaxHP(self, hp):
         self.maxHP = hp
 
+    def updateRect(self, pos : pygame.Vector2):
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
+
     def clearBG(self):
         EMPTY = pygame.Color(0,0,0,0)
         self.srf.fill(EMPTY)
 
-    def moveTowards(self, targetVect : list[int]):
+    def moveRectTowards(self, targetVect : list[int]):
         # Find direction vector (dx, dy) between enemy and player.
-        dx = targetVect[0] - self.rect.x
-        dy = targetVect[1] - self.rect.y
+        dx = targetVect[0] - self.posX
+        dy = targetVect[1] - self.posY
         dist = math.hypot(dx, dy)
 
-        try:
-            # Normalize.
-            dx = dx / dist
-            dy = dy / dist  
-        except ZeroDivisionError: 
-            return
-        # Move along this normalized vector towards the player at current speed.
-        self.rect.x += dx * self.speed
-        self.rect.y += dy * self.speed
+        if dist > dx * self.speed and dist > dx * self.speed:
+            try:
+                # Normalize.
+                dx = dx / dist
+                dy = dy / dist  
+            except ZeroDivisionError: 
+                return
+            # Move along this normalized vector towards the player at current speed.
+            self.posX += dx * self.speed
+            self.posY += dy * self.speed            
         self.clearBG()
 
     def draw(self, screen):
         if self.shape == Shapes.CIRCLE:
-            RECT = pygame.draw.circle(self.srf, self.color, radius=self.radius)
-            screen.blit(self.srf, RECT)
+            self.rect = pygame.draw.circle(self.srf, self.color, radius=self.radius)
+            screen.blit(self.srf, self.rect)
             return
         if self.shape == Shapes.TRIANGLE:
-            RECT = pygame.draw.polygon(self.srf, self.color, self.points)
-            screen.blit(self.srf, RECT)
+            self.rect = pygame.draw.polygon(self.srf, self.color, self.points)
+            screen.blit(self.srf, self.rect)
             return
         if self.shape == Shapes.SQUARE:
-            RECT = pygame.Rect(self.posX, self.posY, 60, 60)
-            RECT = pygame.draw.rect(self.srf, self.color, RECT)
-            screen.blit(self.srf, RECT)
+            self.rect = pygame.Rect(self.posX, self.posY, 60, 60)
+            self.rect = pygame.draw.rect(self.srf, self.color, self.rect)
+            screen.blit(self.srf, self.rect)
             return
 
     def spawn(self):

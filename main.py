@@ -1,3 +1,4 @@
+from turtle import Shape
 import game
 import player_class
 import pygame
@@ -22,49 +23,36 @@ def draw_bg():
 
 BLUE = (0, 0, 255)
 
+# Create a spawner
 spawner = Spawner(screen)
 
+# Create your enemy prefabs
 triangleEnemy = Enemy2(Shapes.TRIANGLE, points=[(0, 0), (0, 100), (100, 0)])
 squareEnemy = Enemy2(Shapes.SQUARE, color=(0,255,0), x=200, y=200)
 squareEnemy2 = Enemy2(Shapes.SQUARE, color=(0,30,50), x=300, y=100)
-squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), x=70, y=70)
+squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), x=170, y=70)
 
+# Spawn them
 spawner.spawn(triangleEnemy, 1)
-spawner.spawn(squareEnemy, 1)
-spawner.spawn(squareEnemy2, 1)
-spawner.spawn(squareEnemy3, 1)
+#spawner.spawn(squareEnemy, 1)
+#spawner.spawn(squareEnemy2, 1)
+#spawner.spawn(squareEnemy3, 1)
 
 player = player_class.Player(80, 200)
 
-print(game.enemyList)
 while game.running:
     
     clock.tick(FPS)
 
     for element in game.enemyList:
         element.draw(screen)
-        #element.moveTowards((0,0))
+        if element.shape == Shapes.SQUARE:
+            element.moveRectTowards((10,200))
 
     for event in pygame.event.get():
         # Quit game
         if event.type == pygame.QUIT:
             game.running = False
-
-        # Keyboard input
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                moving_left = True
-            if event.key == pygame.K_d:
-                moving_right = True
-            if event.key == pygame.K_ESCAPE:
-                game.running = False
-
-        # Keyboard release
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
-                moving_left = False
-            if event.key == pygame.K_d:
-                moving_right = False
 
     keys = pygame.key.get_pressed()
     player.do_player_things(screen, keys, pygame.mouse, [])
