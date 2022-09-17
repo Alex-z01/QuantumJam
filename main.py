@@ -1,6 +1,6 @@
-from turtle import speed
 import pygame
 from sys import exit
+from enemy import Enemy
 
 pygame.init()
 
@@ -20,49 +20,19 @@ moving_right = False
 def draw_bg():
     screen.fill(BG)
 
-class Potion(pygame.sprite.Sprite):
-    def __init__(self, x, y, scale, speed):
-        pygame.sprite.Sprite.__init__(self)
-        self.speed = speed
-        self.direction = 1
-        self.flip = False
-        img = pygame.image.load('graphics\Transperent\Icon1.png')
-        self.image = pygame.transform.scale(img, (img.get_width() * scale, img.get_height() * scale))
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
-
-    def move(self, moving_left, moving_right):
-        # reset movement vars
-        dx, dy = 0, 0
-
-        # assign movement vars
-        if moving_left:
-            dx = -self.speed
-            self.flip = True
-            self.direction = -1
-        if moving_right:
-            dx = self.speed
-            self.flip = False
-            self.direction = 1
-
-        # update rect pos
-        self.rect.x += dx
-        self.rect.y += dy
-
-    def draw(self):
-        screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
-
-
-
-potion = Potion(200, 200, 3, 5)
+BLUE = (0, 0, 255)
+e = Enemy(screen, 300, 300, 1, 5, False)
+e2 = Enemy(screen, 30, 60, 1, 5, False, BLUE)
 
 run = True
 while run:
     
     clock.tick(FPS)
 
-    potion.draw()
-    potion.move(moving_left, moving_right)
+    e2.draw()
+
+    e.draw()
+    e.moveToTarget(e2.rect)
 
     for event in pygame.event.get():
         # Quit game
