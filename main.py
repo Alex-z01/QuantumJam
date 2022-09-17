@@ -5,6 +5,8 @@ from shapes import Shapes
 from spawner import Spawner
 from enemy2 import Enemy2
 from sys import exit
+import status_bars
+
 
 pygame.init()
 
@@ -35,6 +37,8 @@ spawner.spawn(squareEnemy2, 1)
 spawner.spawn(squareEnemy3, 1)
 
 player = player_class.Player(80, 200)
+health_bar = status_bars.health_bar(screen, player)
+level_display = status_bars.level_display(screen)
 
 print(game.enemyList)
 while game.running:
@@ -68,6 +72,8 @@ while game.running:
 
     keys = pygame.key.get_pressed()
     player.do_player_things(screen, keys, pygame.mouse, [])
+    health_bar.show_health()
+    level_display.show_level()
 
     pygame.display.update()
     draw_bg()
