@@ -1,13 +1,12 @@
-from turtle import Shape
 import game
 import player_class
 import pygame
+from enemy import Enemy
 from shapes import Shapes
 from spawner import Spawner
 from enemy2 import Enemy2
 from sys import exit
 import status_bars
-
 
 pygame.init()
 
@@ -30,14 +29,13 @@ spawner = Spawner(screen)
 
 # Create your enemy prefabs
 triangleEnemy = Enemy2(Shapes.TRIANGLE, points=[(100, 100), (200, 100), (100, 200)])
-squareEnemy = Enemy2(Shapes.SQUARE, color=(0,255,0), x=200, y=200)
-squareEnemy2 = Enemy2(Shapes.SQUARE, color=(0,30,50), x=300, y=100)
-squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), x=170, y=70)
-squareEnemy4 = Enemy2(Shapes.SQUARE, x=146, y=146)
+squareEnemy = Enemy2(Shapes.SQUARE, color=(0,255,0), pos=(200, 200))
+#squareEnemy2 = Enemy2(Shapes.SQUARE, color=(0,30,50), pos=(300, 170))
+#squareEnemy3 = Enemy2(Shapes.SQUARE, color=(128,55,198), pos=(170, 70))
 
-# Spawn them
-spawner.spawn(triangleEnemy, 1)
-spawner.spawn(squareEnemy4, 1)
+# Spawn themda
+#spawner.spawn(triangleEnemy, 1)
+spawner.spawn(squareEnemy, 1)
 #spawner.spawn(squareEnemy2, 1)
 #spawner.spawn(squareEnemy3, 1)
 
@@ -45,15 +43,20 @@ player = player_class.Player(80, 200)
 health_bar = status_bars.health_bar(screen, player)
 level_display = status_bars.level_display(screen)
 
+Enemies = pygame.sprite.Group()
+Enemies.add(Enemy(player, 3))
+
 while game.running:
     
     clock.tick(FPS)
 
+    Enemies.draw(screen)
+    Enemies.update()
+
     for element in game.enemyList:
         element.draw(screen)
-        #if element.shape == Shapes.SQUARE:
-        #    element.moveRectTowards((0,0))
-
+        if element.shape == Shapes.TRIANGLE:
+            element.moveRect(player.get_rectangle())
 
     for event in pygame.event.get():
         # Quit game

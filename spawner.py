@@ -24,7 +24,7 @@ class Spawner():
                 thing.spawn()
             # SQUARE
             if obj.shape == Shapes.SQUARE:
-                thing = Enemy2(obj.shape, color=obj.color, x=obj.posX, y=obj.posY)
+                thing = Enemy2(obj.shape, color=obj.color, pos=obj.pos)
                 thing.setSurface(self.srf)
                 thing.spawn()
                 

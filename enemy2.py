@@ -1,10 +1,11 @@
+from turtle import pos
 import game
 import pygame
 import math
 from shapes import Shapes
 
 class Enemy2():
-    def __init__(self, shape, points : list[pygame.Vector2] = None, color=(255, 0, 0), radius=None, x=0, y=0):
+    def __init__(self, shape, color=(255, 0, 0), points : list[pygame.Vector2] = None, radius=None, pos : pygame.Vector2 = None):
 
         # Stats
         self.maxHP = 0
@@ -17,10 +18,8 @@ class Enemy2():
         self.points = points
         self.color = color
         self.radius = radius
-        self.posX = x
-        self.posY = y
+        self.pos = pos
         self.rect = None
-
 
     def getCurrentHP(self):
         return self.currentHP
@@ -47,7 +46,7 @@ class Enemy2():
         return self.rect
 
     def getPos(self):
-        return [self.posX, self.posY] 
+        return self.pos
 
     def setPos(self, pos : pygame.Vector2):
         self.posX = pos[0]
@@ -74,9 +73,29 @@ class Enemy2():
         self.srf.fill(EMPTY)
 
     def moveRectTowards(self, targetVect : list[int]):
+        posX, posY = self.pos[0], self.pos[1]
         # Find direction vector (dx, dy) between enemy and player.
-        dx = targetVect[0] - self.posX
-        dy = targetVect[1] - self.posY
+        dx = targetVect[0] - posX
+        dy = targetVect[1] - posY
+        dist = math.hypot(dx, dy)
+
+        if dist > dx and dist > dy:
+            try:
+                # Normalize.
+                dx = dx / dist
+                dy = dy / dist  
+            except ZeroDivisionError: 
+                return
+            # Move along this normalized vector towards the player at current speed.
+            posX += dx * self.speed
+            posY += dy * self.speed   
+            self.pos = [posX, posY]         
+        self.clearBG()
+
+    def moveRect(self, targetVect : pygame.Vector2):
+         # Find direction vector (dx, dy) between enemy and player.
+        dx = targetVect[0] - self.rect.x
+        dy = targetVect[1] - self.rect.y
         dist = math.hypot(dx, dy)
 
         if dist > dx and dist > dx:
@@ -87,8 +106,18 @@ class Enemy2():
             except ZeroDivisionError: 
                 return
             # Move along this normalized vector towards the player at current speed.
-            self.posX += dx * self.speed
-            self.posY += dy * self.speed            
+            self.rect.x += dx * self.speed
+            self.rect.y += dy * self.speed            
+        #self.clearBG()       
+
+    def setPoints(self):
+        newPoints = []
+
+        for point in self.points:
+            newTuple = [point[0] + 1, point[1] - 1]
+            newPoints.append(newTuple)
+        
+        self.points = newPoints
         self.clearBG()
 
     def draw(self, screen):
@@ -97,11 +126,12 @@ class Enemy2():
             screen.blit(self.srf, self.rect)
             return
         if self.shape == Shapes.TRIANGLE:
-            self.rect = pygame.draw.polygon(self.srf, self.color, self.points)
+            if self.rect == None:
+                self.rect = pygame.draw.polygon(self.srf, self.color, self.points)
             screen.blit(self.srf, self.rect)
             return
         if self.shape == Shapes.SQUARE:
-            self.rect = pygame.Rect(self.posX, self.posY, 60, 60)
+            self.rect = pygame.Rect(self.pos[0], self.pos[1], 60, 60)
             self.rect = pygame.draw.rect(self.srf, self.color, self.rect)
             screen.blit(self.srf, self.rect)
             return
