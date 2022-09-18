@@ -1,7 +1,6 @@
 import math
 
 import pygame
-import weapons
 import util
 
 
@@ -12,6 +11,7 @@ class Player:
 		self.model_location = model_location
 		self.surface = pygame.image.load(model_location)
 		self.rectangle = self.surface.get_rect(midbottom=(x_pos, y_pos))
+		self.rect = self.rectangle
 
 		self.weapon = weapons.weapon_type.PARTICLE
 		self.projectiles = []
