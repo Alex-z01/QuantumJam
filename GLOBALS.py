@@ -1,7 +1,9 @@
+from pickle import TRUE
 import pygame
 from player import Player
 from enemy import Enemy
 
+RUNNING = True
 SCREEN_W = 1080 
 SCREEN_H = 720
 SCREEN = pygame.display.set_mode((SCREEN_W, SCREEN_H))

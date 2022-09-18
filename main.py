@@ -1,4 +1,3 @@
-import game
 import pygame
 import GLOBALS
 import status_bars
@@ -19,7 +18,7 @@ health_bar = status_bars.health_bar(GLOBALS.SCREEN, GLOBALS.playerSprite)
 level_display = status_bars.level_display(GLOBALS.SCREEN)
 game_over = status_bars.game_over(GLOBALS.SCREEN, GLOBALS.playerSprite, 600, 300, 300, 300)
 
-while game.running:
+while GLOBALS.RUNNING:
     
     clock.tick(GLOBALS.FPS)
 
@@ -33,7 +32,7 @@ while game.running:
     for event in pygame.event.get():
         # Quit game
         if event.type == pygame.QUIT:
-            game.running = False
+            GLOBALS.RUNNING = False
 
     health_bar.show_health()
     level_display.show_level()
