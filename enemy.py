@@ -4,22 +4,26 @@ import pygame
 import GLOBALS
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, target, speed):
+    def __init__(self, target, image, speed):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load("graphics/enemies/triangle/red triangle/redTriangle100%.png").convert_alpha()
+        self.image = pygame.image.load(image)
 
         centerX = random.randrange(0, GLOBALS.SCREEN_W)
         centerY = random.randrange(0, GLOBALS.SCREEN_H)
 
-        self.rect = self.image.get_rect(center=(0, 0))
+        self.rect = self.image.get_rect(center=(centerX, centerY))
+        self.pos = (centerX, centerY)
 
         self.target = target
         self.speed = speed
 
-        self.maxHP = 10
+        self.maxHP = 20
         self.currentHP = self.maxHP
         self.damage = 5
+
+        self.time_since_last_attack = 0
+        self.attack_delay = 1000 #ms
     
     def getCurrentHP(self):
         return self.currentHP
@@ -38,8 +42,8 @@ class Enemy(pygame.sprite.Sprite):
 
     def moveTo(self, target):
         # Find direction vector (dx, dy) between enemy and player.
-        dx = target.get_rectangle().centerx - self.rect.centerx
-        dy = target.get_rectangle().centery - self.rect.centery
+        dx = target.rect.centerx - self.rect.centerx
+        dy = target.rect.centery - self.rect.centery
         dist = math.hypot(dx, dy)
 
         # Move along this normalized vector towards the player at current speed.
@@ -55,5 +59,22 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.rect.centery += dy * self.speed     
 
+    def TakeDamage(self, damage):
+        print("Ouch")
+        if self.currentHP - damage <= 0:
+            self.kill()
+            return
+        self.setCurrentHP(self.currentHP - damage)
+
+    def checkCollisions(self):
+        collisions = pygame.sprite.spritecollide(self, GLOBALS.Player, False)
+        self.currentTime = pygame.time.get_ticks()
+
+        if self.currentTime - self.time_since_last_attack >= self.attack_delay:
+            for col in collisions:
+                col.TakeDamage(self.damage)
+                self.time_since_last_attack = self.currentTime
+
     def update(self):
+        self.checkCollisions()
         self.moveTo(self.target)
