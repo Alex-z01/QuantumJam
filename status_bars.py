@@ -7,12 +7,12 @@ class health_bar:
 		self.y_pos = y_pos
 		self.screen = screen
 		self.player = player
-		self.current_health = player.health
 		self.max_health = player.max_health
+		self.current_health = player.health
 		self.font = pygame.font.Font(font_type, font_size)
 
 	def show_health(self):
-		self.current_health = self.player.get_health()
+		self.current_health = self.player.getHealth()
 		health_text = "Health: " + str(self.current_health) + " / " + str(self.max_health)
 		surface = self.font.render(health_text, False, "black")
 		self.screen.blit(surface, (self.x_pos, self.y_pos))
@@ -48,7 +48,7 @@ class game_over:
 		self.game_over = False
 
 	def show(self):
-		self.game_over = self.player.get_health() <= 0
+		self.game_over = self.player.getHealth() <= 0
 		if self.game_over:
 			black_screen_surface = pygame.image.load("./graphics/black_screen.png")
 			self.screen.blit(black_screen_surface, (0,0))
