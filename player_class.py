@@ -82,7 +82,7 @@ class Player:
 
 	def detect_enemy_collision(self, enemies, enemy_projectiles):
 		for enemy in enemies:
-			enemy_hitbox = enemy.getRect()
+			enemy_hitbox = enemy.rect
 			if self.rectangle.colliderect(enemy_hitbox):
 				self.calculate_player_damage_taken(enemy)
 

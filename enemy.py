@@ -1,5 +1,7 @@
 import math
+import random
 import pygame
+import GLOBALS
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, target, speed):
@@ -7,14 +9,33 @@ class Enemy(pygame.sprite.Sprite):
 
         self.image = pygame.image.load("graphics/enemies/triangle/red triangle/redTriangle100%.png").convert_alpha()
 
-        centerX = self.image.get_rect().centerx
-        centerY = self.image.get_rect().centery
+        centerX = random.randrange(0, GLOBALS.SCREEN_W)
+        centerY = random.randrange(0, GLOBALS.SCREEN_H)
 
         self.rect = self.image.get_rect(center=(0, 0))
 
         self.target = target
         self.speed = speed
+
+        self.maxHP = 10
+        self.currentHP = self.maxHP
+        self.damage = 5
     
+    def getCurrentHP(self):
+        return self.currentHP
+
+    def getMaxHP(self):
+        return self.maxHP
+
+    def getDMG(self):
+        return self.damage
+
+    def setCurrentHP(self, hp):
+        self.currentHP = hp
+    
+    def setMaxHP(self, hp):
+        self.maxHP = hp
+
     def moveTo(self, target):
         # Find direction vector (dx, dy) between enemy and player.
         dx = target.get_rectangle().centerx - self.rect.centerx
