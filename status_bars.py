@@ -22,17 +22,16 @@ class level_display:
 		self.x_pos = x_pos
 		self.y_pos = y_pos
 		self.screen = screen
-		self.level = "1"
+		self.level = 1
 		self.font = pygame.font.Font(font_type, font_size)
 
 	def show_level(self):
-		level_text = "Level: " + self.level
+		level_text = f"Level: {self.level}" 
 		surface = self.font.render(level_text, False, "black")
 		self.screen.blit(surface, (self.x_pos, self.y_pos))
 
-	def update_level(self, level):
+	def set_level(self, level):
 		self.level = level
-
 
 class game_over:
 	def __init__(self, screen, player, quit_x_pos=600, quit_y_pos=300, restart_x_pos=300, restart_y_pos=300, font_type="./font/Pixeltype.ttf", font_size=100):

@@ -1,3 +1,4 @@
+from distutils.spawn import spawn
 import math
 import random
 import pygame
@@ -7,7 +8,8 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, target, image, speed):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load(image)
+        self.image_loc = image
+        self.image = pygame.image.load(self.image_loc)
 
         centerX = random.randrange(0, GLOBALS.SCREEN_W)
         centerY = random.randrange(0, GLOBALS.SCREEN_H)
@@ -62,9 +64,19 @@ class Enemy(pygame.sprite.Sprite):
     def TakeDamage(self, damage):
         print("Ouch")
         if self.currentHP - damage <= 0:
-            self.kill()
-            return
+            self.Die()
         self.setCurrentHP(self.currentHP - damage)
+
+    def Die(self):
+        self.kill()
+        self.isWaveOver()
+        return
+
+    def isWaveOver(self):
+        print(len(GLOBALS.Enemies))
+        if len(GLOBALS.Enemies) == 0:
+            GLOBALS.LEVEL += 1
+            GLOBALS.level_display.set_level(GLOBALS.LEVEL)
 
     def checkCollisions(self):
         collisions = pygame.sprite.spritecollide(self, GLOBALS.Player, False)

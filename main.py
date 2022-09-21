@@ -1,11 +1,9 @@
 import pygame
 import GLOBALS
-import status_bars
+import spawning
 from sys import exit
 
-pygame.init()
-
-BG = GLOBALS.BLUE
+BG = GLOBALS.BACKGROUND
 
 pygame.display.set_caption('Game')
 
@@ -14,13 +12,20 @@ clock = pygame.time.Clock()
 def draw_bg():
     GLOBALS.SCREEN.fill(BG)
 
-health_bar = status_bars.health_bar(GLOBALS.SCREEN, GLOBALS.playerSprite)
-level_display = status_bars.level_display(GLOBALS.SCREEN)
-game_over = status_bars.game_over(GLOBALS.SCREEN, GLOBALS.playerSprite, 600, 300, 300, 300)
-
 while GLOBALS.RUNNING:
     
-    clock.tick(GLOBALS.FPS)
+    clock.tick(GLOBALS.FPS) 
+
+    print(f"Current enemy count {len(GLOBALS.Enemies)}, wave {GLOBALS.LEVEL}")
+
+    try:
+        if spawning.waves[GLOBALS.LEVEL-1].spawned == False:
+            spawning.waves[GLOBALS.LEVEL-1].spawn()
+    except IndexError:
+        print("YOU WON!")
+        GLOBALS.RUNNING = False
+        GLOBALS.QUIT = False
+
 
     keys = pygame.key.get_pressed()
 
@@ -34,12 +39,13 @@ while GLOBALS.RUNNING:
         if event.type == pygame.QUIT:
             GLOBALS.RUNNING = False
 
-    health_bar.show_health()
-    level_display.show_level()
+    GLOBALS.health_bar.show_health()
+    GLOBALS.level_display.show_level()
     #game_over.show()
 
     pygame.display.update()
     draw_bg()
 
-pygame.quit()
-exit()
+if GLOBALS.QUIT == True:
+    pygame.quit()
+    exit()
