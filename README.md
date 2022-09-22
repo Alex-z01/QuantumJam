@@ -52,6 +52,7 @@
         This class is fundamentally similar to the player, aside from the addition of a target follow mechanic and a few more constructor parameters. 
       </li>
     </ul>
+    
   </ul> 
 </div>  
 
