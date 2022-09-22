@@ -4,7 +4,8 @@
 <h2>The Game</h2>
 <pre> 2D Arcade shooter with simple yet portable and scalable player and enemy implementations.
 Enemies are shapes from circles to hexagons, player must identify which pairs are quantumly entangled
-to eliminate them. Waves are pre-made, game is not endless. Controls are WASD, LMB to fire, and K to weapon swap</pre>
+to eliminate them. Waves are pre-made, game is not endless. Controls are WASD, LMB to fire, and K to weapon swap
+</pre>
 
 <div>
   <h2>The Development Process</h2>
