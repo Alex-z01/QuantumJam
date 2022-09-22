@@ -13,7 +13,6 @@
         graphical assets for the project. 
       </li>
     </ul>
-    
     <h3>Workload</h3>
     <ul>
       <li>
@@ -27,7 +26,6 @@
         that were indepent of those currenlty being waited on. 
       </li>
     </ul>
-    
     <h3>[Player Class](../blob/main/player.py)</h3>
     <ul>
       <li>
@@ -44,8 +42,7 @@
         To handle collisions from the player's weapon we implemented a projectile sprite group local to the player, on attack input a projectile object
         would be instantiated which would have its own set of methods for collisions which would be called from the player's pygame update method.
       </li>
-    </ul>
-    
+    </ul>   
     <h3>[Enemy Class](../blob/main/enemy.py)</h3>
     <ul>
       <li>
