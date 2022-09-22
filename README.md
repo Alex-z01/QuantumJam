@@ -1,7 +1,7 @@
 # QuantumJam
 <h4> This repo hosts the files to a small game we called 'Shape Attack' made for a game jam focused on Quantum Mechanics with its theme as 'patterns'. </h4>
 
-<h2>The Development Process</h2>
+<h2><u>The Development Process</u></h2>
 <h3>  • Planning</h3>
 <p> My partner Derek and I begun this project by brainstorming a simple idea irrespecitve of quantum mechanics (since we weren't familiar with them). With 
   the intention of implementing them thematically once we had establish a foundation for the game </p>
