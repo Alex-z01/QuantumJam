@@ -43,13 +43,22 @@
         would be instantiated which would have its own set of methods for collisions which would be called from the player's pygame update method.
       </li>
     </ul>   
-    <h3>[Enemy Class](../blob/main/enemy.py)</h3>
+    <h3><a href="https://github.com/Alex-z01/QuantumJam/blob/main/enemy.py">Enemy Class</a></h3>
     <ul>
       <li>
         This class is fundamentally similar to the player, aside from the addition of a target follow mechanic and a few more constructor parameters. 
       </li>
     </ul>
-    
+    <h3><a href="https://github.com/Alex-z01/QuantumJam/blob/main/enemyspawner.py">Spawner</a></h3>
+    <ul>
+      <li>
+        The spawner class is a simple class that allows for the rapid and easy creation of any enemy object <i>n</i> number of times.
+      </li>
+    </ul>
+    <h3>
+      <a href="https://github.com/Alex-z01/QuantumJam/blob/main/particle.py">Particle Projectile</a>
+      <a href="https://github.com/Alex-z01/QuantumJam/blob/main/waveProj.py">Wave Projectile</a>
+    </h3>
   </ul> 
 </div>  
 
