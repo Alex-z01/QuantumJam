@@ -57,6 +57,7 @@
     </ul>
     <h3>
       <a href="https://github.com/Alex-z01/QuantumJam/blob/main/particle.py">Particle Projectile</a>
+      <br>
       <a href="https://github.com/Alex-z01/QuantumJam/blob/main/waveProj.py">Wave Projectile</a>
     </h3>
   </ul> 
