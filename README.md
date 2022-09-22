@@ -26,7 +26,7 @@
         that were indepent of those currenlty being waited on. 
       </li>
     </ul>
-    <h3>[Player Class](blob/main/player.py)</h3>
+    <h3>[Player Class](https://github.com/Alex-z01/QuantumJam/blob/main/player.py)</h3>
     <ul>
       <li>
         The player class only takes in a path as an arg, this path must point to an image. It initialized a culmniation
