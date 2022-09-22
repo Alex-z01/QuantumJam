@@ -1,7 +1,7 @@
 # QuantumJam
 <h4> This repo hosts the files to a small game we called 'Shape Attack' made for a game jam focused on Quantum Mechanics with its theme as 'patterns'. </h4>
 
-<h2>The Gamek</h2>
+<h2>The Game</h2>
 <p> 2D Arcade shooter with simple yet portable and scalable player and enemy implementations </p>
 
 <div>
