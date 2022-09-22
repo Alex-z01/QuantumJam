@@ -4,9 +4,12 @@
 <div>
   <h2>The Development Process</h2>
   <ul>
-    <p>Planning</p>
-    <li>My partner Derek and I begun this project by brainstorming a simple idea irrespecitve of quantum mechanics (since we weren't familiar with them). With 
-  the intention of implementing them thematically once we had establish a foundation for the game</li>
+    <h3>Planning</h3>
+    <ul>
+      <li>My partner Derek and I begun this project by brainstorming a simple idea irrespecitve of quantum mechanics 
+        (since we weren't familiar with them). With the intention of implementing them thematically once we had establish a foundation for the game
+      </li>
+    </ul>
   </ul> 
 </div>  
 
